@@ -11,10 +11,10 @@
 </div>
 <form>
   <select name="sortBy">
-    <option value="Time-ASC">Thời gian tạo tăng dần</option>
-    <option value="Time-DESC">Thời gian tạo  giảm dần</option>
-    <option value="Name-ASC">Tên tăng dần</option>
-    <option value="Name-DESC">Tên giảm dần</option>
+    <option value="Title-ASC">Thời gian tạo tăng dần</option>
+    <option value="Title-DESC">Thời gian tạo  giảm dần</option>
+    <option value="postDate-ASC">Tên tăng dần</option>
+    <option value="postDate-DESC">Tên giảm dần</option>
   </select>
   <button type="submit">Submit</button>
 </form>
@@ -39,6 +39,7 @@
 <div>
   <a th:if="${blogs.hasPrevious()}" th:href="@{|/?page=${blogs.number -1}|}">Previous</a>
   <span th:text="${blogs.number + 1}"></span>/<span th:text="${blogs.getTotalPages()}"></span>
-  <a th:if="${blogs.hasNext()}" th:href="@{|/?page=${blogs.number +1}|}">Next</a></div>
+ <a th:if="${blogs.hasNext()}" th:href="@{|/?page=${blogs.number +1}|}">Next</a>
+</div>
 </body>
 </html>

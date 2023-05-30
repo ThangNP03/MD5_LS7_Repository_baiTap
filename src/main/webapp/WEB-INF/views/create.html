@@ -3,18 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Blog</title>
+    <style>
+        .alert{
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <h1>Create Blog</h1>
 <a href="/">Back to Home</a>
 <form action="/save"  method="post" th:object="${blog}">
+    <!--    title-->
     <label for="title">Title</label>
     <input type="text" id="title" th:field="*{title}"/>
+    <p th:if="${#fields.hasErrors('title')}" th:error="*{title}" class="alert">Title not null and at least have 5 char and maximum is 255 char</p>
+    <!--    content-->
     <label for="content">Content</label>
     <input type="text" id="content" th:field="*{content}">
-
-
-    <label>Country</label>
+    <p th:if="${#fields.hasErrors('content')}" th:error="*{content}" class="alert">Title not null and at least have 5 char and maximum is 255 char</p>
+    <!--    category-->
+    <label>Category</label>
     <select th:field="*{category}">
         <option th:each="c:${category}" th:value="${c.id}" th:text="${c.name}"></option>
     </select>

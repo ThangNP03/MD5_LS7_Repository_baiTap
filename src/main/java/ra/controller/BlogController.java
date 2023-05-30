@@ -9,12 +9,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ra.model.Blog;
 import ra.model.Category;
 import ra.service.blog.IBlogService;
 import ra.service.category.ICategoryService;
+
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -34,24 +38,24 @@ public class BlogController {
         Sort sort = null;
         if (sortBy.isPresent()) {
             switch (sortBy.get()) {
-                case "Time-ASC":
-                    sort = Sort.by("time").ascending();
+                case "postDate-ASC":
+                    sort = Sort.by("postDate").ascending();
                     break;
-                case "Time-DESC":
-                    sort = Sort.by("time").descending();
+                case "postDate-DESC":
+                    sort = Sort.by("postDate").descending();
                     break;
-                case "Name-ASC":
-                    sort = Sort.by("name").ascending();
+                case "Title-ASC":
+                    sort = Sort.by("title").ascending();
                     break;
-                case "Name-DESC":
-                    sort = Sort.by("name").descending();
+                case "Title-DESC":
+                    sort = Sort.by("title").descending();
                     break;
                 default:
                     break;
             }
 
         }else {
-            sort = Sort.by("name").ascending().and(Sort.by("time").ascending());
+            sort = Sort.by("title").ascending().and(Sort.by("postDate").ascending());
         }
         Page<Blog> list = blogService.findAll(pageable,sort);
         model.addAttribute("blogs", list);
@@ -71,7 +75,10 @@ public class BlogController {
     }
 
     @PostMapping("/save")
-    public String saveBlog(@ModelAttribute ("blog") Blog b) {
+    public String saveBlog(@Valid @ModelAttribute ("blog") Blog b, BindingResult bindingResult) {
+        if (bindingResult.hasFieldErrors()) {
+            return "create";
+        }
         b.setPostDate(LocalDate.now());
         blogService.save(b);
         return "redirect:/";

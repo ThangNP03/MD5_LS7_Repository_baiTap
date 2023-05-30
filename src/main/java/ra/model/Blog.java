@@ -2,6 +2,7 @@ package ra.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Entity
@@ -9,11 +10,17 @@ import java.time.LocalDate;
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
+    @NotEmpty
+    @Size(min = 10, max = 255)
     private String title;
+    @NotEmpty
+    @Size(min = 10, max = 255)
     private String content;
     @ManyToOne
     @JoinColumn(name = "category_id" )
+    @NotNull
     private Category category;
     private LocalDate postDate;
 
