@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+</head>
+<body>
+<h1>Detail Blog</h1>
+<button><a href="/">Back to Home</a></button>
+<table border="1" cellspacing="0" cellpadding="10px" style="margin-top: 30px">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Extra Time</th>
+            <th>Content</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td  th:text="${blog.title}"></td>
+            <td th:text="${blog.getPostDate()}"> </td>
+            <td th:text="${blog.getContent()}"></td>
+            <td th:text="${blog.getCategory().name}"></td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>
